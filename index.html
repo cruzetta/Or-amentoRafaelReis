@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta de Orçamento para Rafael Reis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for better look and feel */
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2), 0 8px 10px -6px rgb(0 0 0 / 0.2);
+        }
+        .selected-card {
+            border-color: #4f46e5; /* Indigo-600 */
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.5);
+        }
+        .cta-button {
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.25);
+        }
+        /* Toggle switch style */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #4b5563; /* gray-600 */
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #4f46e5;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-300">
+
+    <div class="container mx-auto p-4 sm:p-8 max-w-4xl">
+        
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-white">Olá, Rafael Reis!</h1>
+            <p class="mt-2 text-lg text-slate-400">Preparei uma proposta especial para o seu projeto. Navegue pelas opções abaixo.</p>
+        </header>
+
+        <!-- Options Container -->
+        <div class="space-y-8">
+            <h2 class="text-2xl font-bold text-center text-white">Escolha a base do seu novo site:</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="options-container">
+                
+                <!-- Card: Landing Page -->
+                <div id="card-lp" class="card cursor-pointer bg-slate-800 p-6 rounded-2xl border-2 border-slate-700 flex flex-col" onclick="selectOption('lp')">
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-bold text-indigo-400">Landing Page</h3>
+                        <p class="text-slate-400 mt-2 mb-4">Uma página única, objetiva e estratégica — com seus serviços, diferenciais, contato e apresentação profissional.</p>
+                        <a href="https://lazuliclinica.com.br" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full text-center bg-slate-700 hover:bg-slate-600 text-slate-300 font-semibold py-2 px-4 rounded-lg transition-colors duration-300 mb-4">
+                            Ver Exemplo
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                        </a>
+                        <p class="font-semibold text-slate-200">Ideal para:</p>
+                        <p class="text-slate-400 mb-6">Fortalecer sua presença online e gerar novas oportunidades com um site enxuto e eficiente.</p>
+                        <div class="text-3xl font-black text-white mb-4">R$ <span id="price-lp">500,00</span></div>
+                    </div>
+                    
+                    <div class="bg-slate-700/50 p-4 rounded-lg mt-auto">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-slate-200">Painel Administrativo?</span>
+                            <label class="switch">
+                                <input type="checkbox" id="admin-lp" onchange="updateQuote(event)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-2">Adicione para você mesmo editar fotos e textos quando quiser.</p>
+                    </div>
+
+                    <div class="mt-6 text-center bg-indigo-500/10 text-indigo-300 font-semibold py-2 px-4 rounded-lg">
+                        Prazo: até <span id="prazo-lp">7</span> dias úteis
+                    </div>
+                </div>
+
+                <!-- Card: Site Completo -->
+                <div id="card-sc" class="card cursor-pointer bg-slate-800 p-6 rounded-2xl border-2 border-slate-700 flex flex-col" onclick="selectOption('sc')">
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-bold text-emerald-400">Site Completo</h3>
+                        <p class="text-slate-400 mt-2 mb-4">Com várias páginas (Sobre, Serviços, Blog, etc.), ideal pra quem quer mais robustez, organização e foco em SEO.</p>
+                        <a href="https://saudekangenbrasil-e96ff.web.app/index.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center w-full text-center bg-slate-700 hover:bg-slate-600 text-slate-300 font-semibold py-2 px-4 rounded-lg transition-colors duration-300 mb-4">
+                            Ver Exemplo
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                        </a>
+                        <p class="font-semibold text-slate-200">Ideal para:</p>
+                        <p class="text-slate-400 mb-6">Projetos que buscam máxima organização, conteúdo aprofundado e melhor posicionamento no Google.</p>
+                        <div class="text-3xl font-black text-white mb-4">a partir de R$ <span id="price-sc">1.200,00</span></div>
+                    </div>
+                    
+                     <div class="bg-slate-700/50 p-4 rounded-lg mt-auto">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-slate-200">Painel Administrativo?</span>
+                            <label class="switch">
+                                <input type="checkbox" id="admin-sc" onchange="updateQuote(event)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-2">Adicione para você mesmo gerenciar todo o conteúdo do site com autonomia.</p>
+                    </div>
+
+                    <div class="mt-6 text-center bg-emerald-500/10 text-emerald-300 font-semibold py-2 px-4 rounded-lg">
+                        Prazo: até <span id="prazo-sc">20</span> dias úteis
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="mt-12 text-center">
+            <a href="https://wa.me/5567999093031?text=Ol%C3%A1!%20Gostei%20do%20or%C3%A7amento%20e%20quero%20ver%20as%20formas%20de%20pagamento." target="_blank" class="cta-button inline-block bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-bold text-xl py-4 px-10 rounded-full shadow-lg">
+                Gostei! Quero ver as formas de pagamento.
+            </a>
+            <p class="mt-4 text-sm text-slate-500">Você será redirecionado para o WhatsApp para finalizarmos.</p>
+        </div>
+
+    </div>
+
+    <script>
+        // State management for the quote
+        const quoteState = {
+            selectedOption: null, // Start with no selection
+            lp: {
+                basePrice: 500,
+                basePrazo: 7,
+                admin: false,
+            },
+            sc: {
+                basePrice: 1200,
+                basePrazo: 20,
+                admin: false,
+            }
+        };
+
+        // DOM Elements
+        const cardLp = document.getElementById('card-lp');
+        const cardSc = document.getElementById('card-sc');
+        const priceLpEl = document.getElementById('price-lp');
+        const prazoLpEl = document.getElementById('prazo-lp');
+        const priceScEl = document.getElementById('price-sc');
+        const prazoScEl = document.getElementById('prazo-sc');
+        const adminLpToggle = document.getElementById('admin-lp');
+        const adminScToggle = document.getElementById('admin-sc');
+
+        /**
+         * Selects an option and updates the UI
+         * @param {'lp' | 'sc'} option - The selected option
+         */
+        function selectOption(option) {
+            quoteState.selectedOption = option;
+            updateUI();
+        }
+
+        /**
+         * Updates the quote state based on user interaction (e.g., toggle admin panel)
+         * @param {Event} event - The input change event
+         */
+        function updateQuote(event) {
+            // Stop propagation to prevent card's onclick from firing
+            event.stopPropagation(); 
+            
+            const isLpAdmin = adminLpToggle.checked;
+            const isScAdmin = adminScToggle.checked;
+
+            quoteState.lp.admin = isLpAdmin;
+            quoteState.sc.admin = isScAdmin;
+            
+            updateUI();
+        }
+        
+        /**
+         * Updates the entire UI based on the current state
+         */
+        function updateUI() {
+            // Update Landing Page values
+            const lpPrice = quoteState.lp.admin ? quoteState.lp.basePrice * 2 : quoteState.lp.basePrice;
+            const lpPrazo = quoteState.lp.admin ? quoteState.lp.basePrazo * 2 : quoteState.lp.basePrazo;
+            priceLpEl.textContent = lpPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+            prazoLpEl.textContent = lpPrazo;
+
+            // Update Site Completo values
+            const scPrice = quoteState.sc.admin ? quoteState.sc.basePrice * 2 : quoteState.sc.basePrice;
+            const scPrazo = quoteState.sc.admin ? quoteState.sc.basePrazo * 2 : quoteState.sc.basePrazo;
+            priceScEl.textContent = scPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+            prazoScEl.textContent = scPrazo;
+            
+            // Update card styles
+            if (quoteState.selectedOption === 'lp') {
+                cardLp.classList.add('selected-card');
+                cardSc.classList.remove('selected-card');
+            } else if (quoteState.selectedOption === 'sc') {
+                cardSc.classList.add('selected-card');
+                cardLp.classList.remove('selected-card');
+            }
+        }
+
+        // Initial setup on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            selectOption('lp'); // Select Landing Page by default
+        });
+    </script>
+</body>
+</html>
